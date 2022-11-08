@@ -1,8 +1,23 @@
-import React from "react";
+import { BytesLike } from "ethers";
+import React, { useState, useEffect } from "react";
 
 import { Row, Col, Button, Card } from "react-bootstrap";
 
-function Minting() {
+interface mintData {
+  walletInitialized: Boolean;
+  curPrice: Number;
+  remainingEggs: Number;
+  totalEggs: Number;
+}
+
+function Minting(props: mintData) {
+  const [areEggsLeft, setAreEggsLeft] = useState<Boolean>(true);
+
+  useEffect(() => {
+    if (props.remainingEggs === 0) {
+      setAreEggsLeft(false);
+    }
+  }, [props.remainingEggs]);
   return (
     <>
       <Row>
@@ -23,7 +38,7 @@ function Minting() {
                     Price
                   </Card.Title>
                   <Card.Text style={{ fontSize: "20px" }}>
-                    3.37 Testnet-ETH
+                    {String(props.curPrice) + " Testneth-ETH"}
                   </Card.Text>
                 </Col>
                 <Col
@@ -34,12 +49,25 @@ function Minting() {
                     Remaining
                   </Card.Title>
                   <Card.Text style={{ fontSize: "20px" }}>
-                    87/100 Eggs
+                    {String(props.remainingEggs) +
+                      "/" +
+                      String(props.totalEggs) +
+                      " Eggs"}
                   </Card.Text>
                 </Col>
               </Row>
               <Row className="mt-2">
-                <Button variant="dark">Create Egg</Button>
+                {areEggsLeft ? (
+                  <Button variant="dark" disabled={!props.walletInitialized}>
+                    {!props.walletInitialized
+                      ? "Login with your wallet before minting."
+                      : "Create Your Egg"}
+                  </Button>
+                ) : (
+                  <Button variant="dark" disabled>
+                    All egs are sold already!
+                  </Button>
+                )}
               </Row>
             </Card.Body>
           </Card>
