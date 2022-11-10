@@ -1,7 +1,7 @@
-import { BytesLike } from "ethers";
 import React, { useState, useEffect } from "react";
 
 import { Row, Col, Button, Card } from "react-bootstrap";
+import { mintNFT } from "../hooks/mintNFT";
 
 interface mintData {
   walletInitialized: Boolean;
@@ -12,6 +12,17 @@ interface mintData {
 
 function Minting(props: mintData) {
   const [areEggsLeft, setAreEggsLeft] = useState<Boolean>(true);
+  const [minting, setMinting] = useState<Boolean>(false);
+
+  async function mintHandler() {
+    setMinting(true);
+    let res = await mintNFT();
+    if (res) {
+      alert("Successful mint");
+    } else {
+      alert("There was an error");
+    }
+  }
 
   useEffect(() => {
     if (props.remainingEggs === 0) {
@@ -58,11 +69,15 @@ function Minting(props: mintData) {
               </Row>
               <Row className="mt-2">
                 {areEggsLeft ? (
-                  <Button variant="dark" disabled={!props.walletInitialized}>
-                    {!props.walletInitialized
-                      ? "Login with your wallet before minting."
-                      : "Create Your Egg"}
-                  </Button>
+                  !props.walletInitialized || minting ? (
+                    <Button variant="dark" disabled>
+                      Login with your wallet before minting.
+                    </Button>
+                  ) : (
+                    <Button variant="dark" onClick={mintHandler}>
+                      Mint your dragon egg now!
+                    </Button>
+                  )
                 ) : (
                   <Button variant="dark" disabled>
                     All egs are sold already!

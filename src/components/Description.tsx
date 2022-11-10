@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
 
-import NFT1 from "../assets/img/0.png";
-import NFT2 from "../assets/img/1.png";
-import NFT3 from "../assets/img/2.png";
+import NFT1 from "../assets/img/0.jpg";
+import NFT2 from "../assets/img/1.jpg";
+import NFT3 from "../assets/img/2.jpg";
 
 function Description() {
   return (
