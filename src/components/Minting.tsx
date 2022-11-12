@@ -25,9 +25,7 @@ function Minting(props: mintData) {
   }
 
   useEffect(() => {
-    if (props.remainingEggs === 0) {
-      setAreEggsLeft(false);
-    }
+    setAreEggsLeft(props.remainingEggs !== 0);
   }, [props.remainingEggs]);
   return (
     <>

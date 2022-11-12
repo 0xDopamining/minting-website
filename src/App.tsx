@@ -8,7 +8,7 @@ import Minting from "./components/Minting";
 
 import {
   getCurrentPrice,
-  getRemainingEggs,
+  getSoldEggs,
   getTotalEggs,
 } from "./hooks/contractData";
 
@@ -18,6 +18,9 @@ import { BytesLike } from "ethers";
 function App() {
   const [privateKey, setPrivateKeyState] = useState<BytesLike>("");
   const [walletInitialized, setWalletInitialized] = useState<Boolean>(false);
+  const [curPrice, setCurrentPrice] = useState<Number>(0);
+  const [remainingEggs, setRemainingEggs] = useState<Number>(0);
+  const [totalEggs, setTotalEggs] = useState<Number>(0);
 
   function setPrivateKey(privateKey: BytesLike) {
     setPrivateKeyState(privateKey);
@@ -34,6 +37,16 @@ function App() {
     setPrivateKey(
       "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
     ); //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
+
+    const fetchData = async () => {
+      setCurrentPrice(await getCurrentPrice());
+      const totalEggsval: Number | any = await getTotalEggs();
+      const soldEggs: Number | any = await getSoldEggs();
+      setTotalEggs(totalEggsval);
+      setRemainingEggs(totalEggsval - soldEggs);
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -54,9 +67,9 @@ function App() {
           </Row>
           <Minting
             walletInitialized={walletInitialized}
-            curPrice={getCurrentPrice()}
-            remainingEggs={getRemainingEggs()}
-            totalEggs={getTotalEggs()}
+            curPrice={curPrice}
+            remainingEggs={remainingEggs}
+            totalEggs={totalEggs}
           />
           <Description />
         </Container>

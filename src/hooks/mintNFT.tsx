@@ -6,18 +6,19 @@ import { customHttpProvider } from "../ethereum/RPCConnector";
 
 export const mintNFT = async (): Promise<Boolean> => {
   const wallet: ethers.Wallet = getWallet();
-  return true;
-  /*
+
   let contract = new ethers.Contract(
     SALE_CONTRACT,
     CONTRACT_ABI,
     customHttpProvider
   );
   let contractWithSigner = contract.connect(wallet);
-  let tx = await contractWithSigner.payablefunction(parameters, {
-    value: ethers.utils.parseEther("0.1"),
+  let tx = await contractWithSigner.mintNFT({
+    value: ethers.utils.parseEther("1"),
   });
   console.log(tx);
 
-  await tx.wait();*/
+  await tx.wait();
+
+  return true;
 };
