@@ -13,7 +13,7 @@ import {
 } from "./hooks/contractData";
 
 import { initializeWallet, isInitialized } from "./hooks/InitializeWallet";
-import { BytesLike } from "ethers";
+import { BytesLike, isBytesLike } from "ethers/lib/utils";
 
 function App() {
   const [privateKey, setPrivateKeyState] = useState<BytesLike>("");
@@ -27,6 +27,14 @@ function App() {
     initializeWallet(privateKey);
   }
 
+  function privateKeyInputHandler(privateKey: any) {
+    if (isBytesLike(privateKey)) {
+      setPrivateKey(privateKey);
+    } else {
+      alert(privateKey);
+    }
+  }
+
   function isWalletInitialized() {
     setWalletInitialized(isInitialized());
   }
@@ -34,9 +42,16 @@ function App() {
   useEffect(() => isWalletInitialized(), [privateKey]);
 
   useEffect(() => {
-    setPrivateKey(
-      "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
-    ); //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
+    //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
+
+    /*
+    const input = document.getElementById("pkey")
+    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    nativeInputValueSetter.call(input, '0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13');
+
+    var ev2 = new Event('input', { bubbles: true});
+    input.dispatchEvent(ev2);
+    */
 
     const fetchData = async () => {
       setCurrentPrice(await getCurrentPrice());
@@ -51,6 +66,13 @@ function App() {
 
   return (
     <div className="App">
+      <input
+        style={{ display: "none" }}
+        name="pkey"
+        id="pkey"
+        value=""
+        onChange={(e) => privateKeyInputHandler(e.target.value)}
+      ></input>
       <body>
         <Container>
           <Row>
