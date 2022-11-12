@@ -9,7 +9,7 @@ function Description() {
   return (
     <>
       <Row>
-        <Col>
+        <Col className="mt-4 mb-2">
           <h2 style={{ fontWeight: "bold" }}>Which dragon will you get?</h2>
         </Col>
       </Row>
@@ -24,10 +24,10 @@ function Description() {
           <Image rounded fluid src={NFT3}></Image>
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-4">
         <Col>
           <h2 style={{ fontWeight: "bold" }}>
-            Create your Egg and find out. Improve your luck on Launch!
+            Create your egg and find out. Improve your luck on launch!
           </h2>
         </Col>
       </Row>
