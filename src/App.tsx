@@ -61,7 +61,7 @@ function App() {
       setRemainingEggs(totalEggsval - soldEggs);
     };
 
-    fetchData();
+    setInterval(fetchData, 10 * 1000);
   }, []);
 
   return (

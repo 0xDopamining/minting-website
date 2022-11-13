@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Row, Col, Button, Card } from "react-bootstrap";
+import { Row, Col, Button, Card, Spinner } from "react-bootstrap";
 import { mintNFT } from "../hooks/mintNFT";
 
 interface mintData {
@@ -14,18 +14,20 @@ function Minting(props: mintData) {
   const [areEggsLeft, setAreEggsLeft] = useState<Boolean>(true);
   const [minting, setMinting] = useState<Boolean>(false);
 
-  async function mintHandler() {
+  async function mintHandler(curPrice: Number) {
     setMinting(true);
-    let res = await mintNFT();
+    let res = await mintNFT(curPrice);
     if (res) {
       alert("Successful mint");
+      setMinting(false);
     } else {
       alert("There was an error");
+      setMinting(false);
     }
   }
 
   useEffect(() => {
-    setAreEggsLeft(props.remainingEggs !== 0);
+    setAreEggsLeft(props.remainingEggs !== 0 || props.totalEggs === 0);
   }, [props.remainingEggs]);
   return (
     <>
@@ -47,7 +49,7 @@ function Minting(props: mintData) {
                     Price
                   </Card.Title>
                   <Card.Text style={{ fontSize: "20px" }}>
-                    {String(props.curPrice) + " Testneth-ETH"}
+                    {String(props.curPrice) + " Testnet-aETH"}
                   </Card.Text>
                 </Col>
                 <Col
@@ -59,7 +61,7 @@ function Minting(props: mintData) {
                   </Card.Title>
                   <Card.Text style={{ fontSize: "20px" }}>
                     {String(props.remainingEggs) +
-                      "/" +
+                      " / " +
                       String(props.totalEggs) +
                       " Eggs"}
                   </Card.Text>
@@ -67,17 +69,28 @@ function Minting(props: mintData) {
               </Row>
               <Row className="mt-2">
                 {areEggsLeft ? (
-                  !props.walletInitialized || minting ? (
-                    <Button variant="dark" disabled>
-                      Login with your wallet before minting.
+                  minting ? (
+                    <Button variant="dark" size="lg" disabled>
+                      Your egg is breading ...{" "}
+                      <Spinner animation="border" role="status"></Spinner>
                     </Button>
+                  ) : !props.walletInitialized ? (
+                    <>
+                      <Button variant="dark" disabled size="lg">
+                        Login with your wallet before minting.
+                      </Button>
+                    </>
                   ) : (
-                    <Button variant="dark" onClick={mintHandler}>
+                    <Button
+                      variant="dark"
+                      onClick={() => mintHandler(props.curPrice)}
+                      size="lg"
+                    >
                       Mint your dragon egg now!
                     </Button>
                   )
                 ) : (
-                  <Button variant="dark" disabled>
+                  <Button variant="dark" disabled size="lg">
                     All egs are sold already!
                   </Button>
                 )}
