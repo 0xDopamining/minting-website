@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Row, Col, Button, Card, Spinner } from "react-bootstrap";
 import { mintNFT } from "../hooks/mintNFT";
+import ConfirmationModal from "./ConfirmationModal";
 
 interface mintData {
   walletInitialized: Boolean;
@@ -13,10 +14,16 @@ interface mintData {
 function Minting(props: mintData) {
   const [areEggsLeft, setAreEggsLeft] = useState<Boolean>(true);
   const [minting, setMinting] = useState<Boolean>(false);
+  const [modalShow, setModalShow] = useState<boolean>(false);
 
-  async function mintHandler(curPrice: Number) {
+  async function mintHandler() {
+    setModalShow(true);
+  }
+
+  async function executeMint() {
+    setModalShow(false);
     setMinting(true);
-    let res = await mintNFT(curPrice);
+    let res = await mintNFT(props.curPrice);
     if (res) {
       alert("Successful mint");
       setMinting(false);
@@ -28,9 +35,14 @@ function Minting(props: mintData) {
 
   useEffect(() => {
     setAreEggsLeft(props.remainingEggs !== 0 || props.totalEggs === 0);
-  }, [props.remainingEggs]);
+  }, [props.remainingEggs, props.totalEggs]);
   return (
     <>
+      <ConfirmationModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        onConfirm={executeMint}
+      ></ConfirmationModal>
       <Row>
         <Col xs={0} md={3}></Col>
         <Col xs={12} md={6}>
@@ -45,10 +57,10 @@ function Minting(props: mintData) {
                   xs={6}
                   style={{ backgroundColor: "#fff6ed", borderRadius: "30px" }}
                 >
-                  <Card.Title style={{ fontSize: "30px", fontWeight: "bold" }}>
+                  <Card.Title style={{ fontSize: "26px", fontWeight: "bold" }}>
                     Price
                   </Card.Title>
-                  <Card.Text style={{ fontSize: "20px" }}>
+                  <Card.Text style={{ fontSize: "18px" }}>
                     {String(props.curPrice) + " Testnet-aETH"}
                   </Card.Text>
                 </Col>
@@ -56,10 +68,10 @@ function Minting(props: mintData) {
                   xs={6}
                   style={{ backgroundColor: "#fff6ed", borderRadius: "30px" }}
                 >
-                  <Card.Title style={{ fontSize: "30px", fontWeight: "bold" }}>
+                  <Card.Title style={{ fontSize: "26px", fontWeight: "bold" }}>
                     Remaining
                   </Card.Title>
-                  <Card.Text style={{ fontSize: "20px" }}>
+                  <Card.Text style={{ fontSize: "18px" }}>
                     {String(props.remainingEggs) +
                       " / " +
                       String(props.totalEggs) +
@@ -81,11 +93,7 @@ function Minting(props: mintData) {
                       </Button>
                     </>
                   ) : (
-                    <Button
-                      variant="dark"
-                      onClick={() => mintHandler(props.curPrice)}
-                      size="lg"
-                    >
+                    <Button variant="dark" onClick={mintHandler} size="lg">
                       Mint your dragon egg now!
                     </Button>
                   )
