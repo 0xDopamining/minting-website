@@ -38,9 +38,10 @@ const Minting = (props: IMintData) => {
   return (
     <>
       <ConfirmationModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        onConfirm={executeMint} />
+        handleHide={() => setModalShow(false)}
+        handleConfirm={() => executeMint()} 
+        fmtPrice={props.fmtPrice}
+        show={modalShow} />
       <Row>
         <Col xs={12} md={6}>
           <DragonCard {...props} 

@@ -3,8 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 interface IModalData {
-  onHide: () => void;
-  onConfirm: () => Promise<void>;
+  handleHide: () => void;
+  handleConfirm: () => void;
+  fmtPrice: number;
   show: boolean;
 }
 
@@ -19,14 +20,14 @@ function ConfirmationModal(props: IModalData) {
         You are about to mint your dragon
       </Modal.Header>
       <Modal.Body>
-          Press confirm to mint your dragon for <b>0.01 aETH</b> using your
+          Press confirm to mint your dragon for <b>{props.fmtPrice} aETH</b> using your
           Dopamining in-app wallet.
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={props.onHide}>
+        <Button variant="secondary" onClick={props.handleHide}>
           Cancel
         </Button>
-        <Button variant="success" onClick={() => props.onConfirm()}>
+        <Button variant="success" onClick={props.handleConfirm}>
           Confirm
         </Button>
       </Modal.Footer>

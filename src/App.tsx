@@ -36,27 +36,15 @@ function App() {
     }
   }
 
-  function isWalletInitialized() {
+  useEffect(() => {
     setWalletInitialized(DpmWallet.initialized);
-  }
-
-  useEffect(() => isWalletInitialized(), [privateKey]);
+  }, [privateKey]);
 
   useEffect(() => {
+    // Don't worry, we are well aware that this is a leaked private key.
+    // It's still good enough for testing.
     // 0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
-    // setPrivateKey(
-    //   "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
-    // );
-
-    /*
-    const input = document.getElementById("pkey")
-    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-    nativeInputValueSetter.call(input, '0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13');
-
-    var ev2 = new Event('input', { bubbles: true});
-    input.dispatchEvent(ev2);
-    */
-
+  
     const fetchData = async () => {
       setCurrentPrice(await getFormattedPrice());
       const totalEggsval: bigint = await getTotalEggs();
@@ -78,7 +66,6 @@ function App() {
         value=""
         onChange={(e) => privateKeyInputHandler(e.target.value)}
       ></input>
-      <body>
         <Container>
           <Row>
             <Col xs={12}>
@@ -93,7 +80,6 @@ function App() {
           />
           <Description />
         </Container>
-      </body>
     </div>
   );
 }
