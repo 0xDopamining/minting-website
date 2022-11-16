@@ -20,8 +20,9 @@ function Minting(props: IMintData) {
   async function executeMint() {
     setModalShow(false);
     setMinting(true);
-    let res = await mintNFT(props.fmtPrice);
-    if (res) {
+
+    const success = await mintNFT();
+    if (success) {
       alert("Successful mint");
       setMinting(false);
     } else {
@@ -31,8 +32,8 @@ function Minting(props: IMintData) {
   }
 
   useEffect(() => {
-    setEggsLeft(props.totalEggs);
-  }, [props.remainingEggs, props.totalEggs]);
+    setEggsLeft(props.remainingEggs);
+  }, [props.remainingEggs]);
 
   return (
     <>
@@ -47,7 +48,6 @@ function Minting(props: IMintData) {
             isMinting={isMinting} 
             onMint={() => setModalShow(true)} />
         </Col>
-        <Col xs={0} md={3}></Col>
       </Row>
     </>
   );

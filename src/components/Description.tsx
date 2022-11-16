@@ -1,9 +1,9 @@
 import React from "react";
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col, Image, Container } from "react-bootstrap";
 
-import NFT1 from "../assets/img/0.jpg";
-import NFT2 from "../assets/img/1.jpg";
-import NFT3 from "../assets/img/2.jpg";
+import IMG_NFT1 from "../assets/img/0.jpg";
+import IMG_NFT2 from "../assets/img/1.jpg";
+import IMG_NFT3 from "../assets/img/2.jpg";
 
 function Description() {
   return (
@@ -13,15 +13,15 @@ function Description() {
           <h3 style={{ fontWeight: "bold" }}>Which dragon will you get?</h3>
         </Col>
       </Row>
-      <Row className="mx-5">
+      <Row className="mx-4">
         <Col xs={4}>
-          <Image rounded fluid src={NFT1}></Image>
+          <Image rounded fluid src={IMG_NFT1}></Image>
         </Col>
         <Col xs={4}>
-          <Image rounded fluid src={NFT2}></Image>
+          <Image rounded fluid src={IMG_NFT2}></Image>
         </Col>
         <Col xs={4}>
-          <Image rounded fluid src={NFT3}></Image>
+          <Image rounded fluid src={IMG_NFT3}></Image>
         </Col>
       </Row>
       <Row className="my-4">
@@ -33,7 +33,7 @@ function Description() {
           </small>
         </Col>
       </Row>
-    </>
+      </>
   );
 }
 
