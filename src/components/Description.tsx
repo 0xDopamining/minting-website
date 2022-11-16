@@ -1,27 +1,27 @@
 import React from "react";
-import { Row, Col, Image, Container } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
 
 import IMG_NFT1 from "../assets/img/0.jpg";
 import IMG_NFT2 from "../assets/img/1.jpg";
 import IMG_NFT3 from "../assets/img/2.jpg";
 
-function Description() {
+const Description = () => {
   return (
     <>
       <Row>
         <Col className="mt-4 mb-2">
-          <h3 style={{ fontWeight: "bold" }}>Which dragon will you get?</h3>
+          <h3>Which dragon will you get?</h3>
         </Col>
       </Row>
       <Row className="mx-4">
-        <Col xs={4}>
-          <Image rounded fluid src={IMG_NFT1}></Image>
+        <Col>
+          <Image rounded fluid src={IMG_NFT1} />
         </Col>
-        <Col xs={4}>
-          <Image rounded fluid src={IMG_NFT2}></Image>
+        <Col>
+          <Image rounded fluid src={IMG_NFT2} />
         </Col>
-        <Col xs={4}>
-          <Image rounded fluid src={IMG_NFT3}></Image>
+        <Col>
+          <Image rounded fluid src={IMG_NFT3} />
         </Col>
       </Row>
       <Row className="my-4">

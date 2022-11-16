@@ -12,7 +12,7 @@ export interface IMintData {
   totalEggs: bigint;
 }
 
-function Minting(props: IMintData) {
+const Minting = (props: IMintData) => {
   const [eggsLeft, setEggsLeft] = useState<bigint>(0n);
   const [isMinting, setMinting] = useState<boolean>(false);
   const [modalShow, setModalShow] = useState<boolean>(false);

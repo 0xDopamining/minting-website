@@ -12,7 +12,7 @@ import {
   getTotalEggs,
 } from "./hooks/contractData";
 
-import { initializeWallet, isInitialized } from "./hooks/InitializeWallet";
+import { DpmWallet } from "./hooks/InitializeWallet";
 import { BytesLike, isBytesLike } from "ethers/lib/utils";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
 
   function setPrivateKey(privateKey: BytesLike) {
     setPrivateKeyState(privateKey);
-    initializeWallet(privateKey);
+    DpmWallet.privateKey = privateKey;
   }
 
   function privateKeyInputHandler(privateKey: BytesLike) {
@@ -37,7 +37,7 @@ function App() {
   }
 
   function isWalletInitialized() {
-    setWalletInitialized(isInitialized());
+    setWalletInitialized(DpmWallet.initialized);
   }
 
   useEffect(() => isWalletInitialized(), [privateKey]);
@@ -82,7 +82,7 @@ function App() {
         <Container>
           <Row>
             <Col xs={12}>
-              <h1 style={{ fontWeight: "bold" }}>Dragon Mint</h1>
+              <h1>Dragon Mint</h1>
             </Col>
           </Row>
           <Minting

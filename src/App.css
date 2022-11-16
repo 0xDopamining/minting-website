@@ -27,8 +27,5 @@ body {
 
 h1 {
   font-size: 34pt !important;
-}
-
-h2 {
-  font-size: 28pt !important;
+  font-weight: bold !important;
 }
