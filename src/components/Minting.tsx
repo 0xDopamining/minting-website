@@ -14,8 +14,8 @@ interface mintData {
 }
 
 function Minting(props: mintData) {
-  const [areEggsLeft, setAreEggsLeft] = useState<Boolean>(true);
-  const [minting, setMinting] = useState<Boolean>(false);
+  const [areEggsLeft, setAreEggsLeft] = useState<boolean>(true);
+  const [minting, setMinting] = useState<boolean>(false);
   const [modalShow, setModalShow] = useState<boolean>(false);
 
   async function mintHandler() {
@@ -81,28 +81,26 @@ function Minting(props: mintData) {
               </Row>
               <Row>
                 <Col className="mt-3">
-                {areEggsLeft ? (
-                  minting ? (
-                    <Button variant="dark" size="lg" disabled>
-                      Your egg is breading ...{" "}
-                      <Spinner animation="border" role="status"></Spinner>
+                    <Button 
+                      variant="dark" 
+                      disabled={minting || !areEggsLeft || !props.walletInitialized} 
+                      className="w-100" 
+                      onClick={mintHandler} 
+                      size="lg">
+                      {(() => {
+                        if (minting) {
+                          return <>
+                            Your egg is breading...
+                            <Spinner animation="border" role="status" />
+                          </>;
+                        } else if (!props.walletInitialized) {
+                          return <b>Login with your wallet before minting.</b>
+                        } else if (areEggsLeft) {
+                          return <b>Mint</b>
+                        } else {
+                          return <b>Minting is closed!</b>
+                        }})()}
                     </Button>
-                  ) : !props.walletInitialized ? (
-                    <>
-                      <Button variant="dark" disabled size="lg">
-                        Login with your wallet before minting.
-                      </Button>
-                    </>
-                  ) : (
-                    <Button variant="dark" onClick={mintHandler} size="lg">
-                      Mint your dragon egg now!
-                    </Button>
-                  )
-                ) : (
-                  <Button variant="dark" disabled size="lg">
-                    All egs are sold already!
-                  </Button>
-                )}
                 </Col>
               </Row>
             </Card.Body>
