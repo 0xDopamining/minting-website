@@ -2,13 +2,6 @@
   text-align: center;
 }
 
-body {
-  background-color: #f6f3f0 !important;
-  background-image: linear-gradient(#F5F6FF, #E8E8FF);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
-}
-
 h1 {
   font-size: 34pt !important;
   font-weight: bold !important;

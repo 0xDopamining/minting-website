@@ -43,7 +43,7 @@ const Minting = (props: IMintData) => {
         fmtPrice={props.fmtPrice}
         show={modalShow} />
       <Row>
-        <Col xs={12} md={6}>
+        <Col xs={{span: 12}} md={{offset: 3, span: 6}}>
           <DragonCard {...props} 
             areEggsLeft={eggsLeft > 0n} 
             isMinting={isMinting} 

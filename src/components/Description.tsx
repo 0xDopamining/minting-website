@@ -8,22 +8,6 @@ import IMG_NFT3 from "../assets/img/2.jpg";
 const Description = () => {
   return (
     <>
-      <Row>
-        <Col className="mt-4 mb-2">
-          <h3>Which dragon will you get?</h3>
-        </Col>
-      </Row>
-      <Row className="mx-4">
-        <Col>
-          <Image rounded fluid src={IMG_NFT1} />
-        </Col>
-        <Col>
-          <Image rounded fluid src={IMG_NFT2} />
-        </Col>
-        <Col>
-          <Image rounded fluid src={IMG_NFT3} />
-        </Col>
-      </Row>
       <Row className="my-4">
         <Col>
           <small>
