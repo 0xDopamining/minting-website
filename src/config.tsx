@@ -1,8 +1,8 @@
 export const HTTP_NODE_URL = "https://goerli-rollup.arbitrum.io/rpc";
 
-export const SALE_CONTRACT = "0xE04Cb4cCe6FC206E832fAb77222B254DD9cCDE70";
+export const SALE_CONTRACT_ADDRESS = "0xE04Cb4cCe6FC206E832fAb77222B254DD9cCDE70";
 
-export const CONTRACT_ABI = [
+export const SALE_CONTRACT_ABI = [
   {
     inputs: [
       {

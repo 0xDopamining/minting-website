@@ -7,7 +7,7 @@ import Description from "./components/Description";
 import Minting from "./components/Minting";
 
 import {
-  getCurrentPrice,
+  getFormattedPrice,
   getSoldEggs,
   getTotalEggs,
 } from "./hooks/contractData";
@@ -17,17 +17,18 @@ import { BytesLike, isBytesLike } from "ethers/lib/utils";
 
 function App() {
   const [privateKey, setPrivateKeyState] = useState<BytesLike>("");
-  const [walletInitialized, setWalletInitialized] = useState<Boolean>(false);
-  const [curPrice, setCurrentPrice] = useState<Number>(0);
-  const [remainingEggs, setRemainingEggs] = useState<Number>(0);
-  const [totalEggs, setTotalEggs] = useState<Number>(0);
+  const [walletInitialized, setWalletInitialized] = useState<boolean>(false);
+  // We can store it in a number, since we format the price to floating point.
+  const [fmtPrice, setCurrentPrice] = useState<number>(0);
+  const [remainingEggs, setRemainingEggs] = useState<bigint>(0n);
+  const [totalEggs, setTotalEggs] = useState<bigint>(0n);
 
   function setPrivateKey(privateKey: BytesLike) {
     setPrivateKeyState(privateKey);
     initializeWallet(privateKey);
   }
 
-  function privateKeyInputHandler(privateKey: any) {
+  function privateKeyInputHandler(privateKey: BytesLike) {
     if (isBytesLike(privateKey)) {
       setPrivateKey(privateKey);
     } else {
@@ -57,13 +58,14 @@ function App() {
     */
 
     const fetchData = async () => {
-      setCurrentPrice(await getCurrentPrice());
-      const totalEggsval: Number | any = await getTotalEggs();
-      const soldEggs: Number | any = await getSoldEggs();
+      setCurrentPrice(await getFormattedPrice());
+      const totalEggsval: bigint = await getTotalEggs();
+      const soldEggs: bigint = await getSoldEggs();
       setTotalEggs(totalEggsval);
       setRemainingEggs(totalEggsval - soldEggs);
     };
 
+    fetchData()
     setInterval(fetchData, 10 * 1000);
   }, []);
 
@@ -85,7 +87,7 @@ function App() {
           </Row>
           <Minting
             walletInitialized={walletInitialized}
-            curPrice={curPrice}
+            fmtPrice={fmtPrice}
             remainingEggs={remainingEggs}
             totalEggs={totalEggs}
           />
