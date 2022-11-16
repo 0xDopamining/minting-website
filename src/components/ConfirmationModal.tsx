@@ -17,9 +17,9 @@ function ConfirmationModal(props: ModalData) {
       centered
     >
       <Modal.Body>
-        <h4>You are about to mint your NFT dragon</h4>
+        <h4>You are about to mint your dragon</h4>
         <p>
-          Press confirm to mint your NFT dragon for <b>0.01 aETH</b> using your
+          Press confirm to mint your dragon for <b>0.01 aETH</b> using your
           Dopamining in-app wallet.
         </p>
       </Modal.Body>

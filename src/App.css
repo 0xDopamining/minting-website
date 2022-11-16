@@ -2,9 +2,10 @@
   text-align: center;
 }
 
-body{
-  background-color:#f6f3f0 !important;
-  font-family: 'Montserrat' !important;
+body {
+  background-color: #f6f3f0 !important;
+  background-image: linear-gradient(#F5F6FF, #E8E8FF);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
 }
 
@@ -18,15 +19,16 @@ body{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-h1{
-  font-size: 60px !important;
+h1 {
+  font-size: 34pt !important;
 }
 
-h2{
-  font-size: 25px !important;
+h2 {
+  font-size: 28pt !important;
 }

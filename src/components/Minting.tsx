@@ -4,6 +4,8 @@ import { Row, Col, Button, Card, Spinner } from "react-bootstrap";
 import { mintNFT } from "../hooks/mintNFT";
 import ConfirmationModal from "./ConfirmationModal";
 
+import IMG_DRAGON_EGG from "../assets/img/dragon_egg.jpg";
+
 interface mintData {
   walletInitialized: Boolean;
   curPrice: Number;
@@ -49,27 +51,24 @@ function Minting(props: mintData) {
           <Card>
             <Card.Img
               variant="top"
-              src="https://img.freepik.com/premium-photo/dragon-egg-fantasy-illustration_691560-289.jpg?w=2000"
+              src={IMG_DRAGON_EGG}
             />
             <Card.Body>
               <Row>
-                <Col
-                  xs={6}
-                  style={{ backgroundColor: "#fff6ed", borderRadius: "30px" }}
-                >
+                <Col xs={6}>
+                  <Card style={{ backgroundColor: "#fff6ed", borderRadius: "10px" }}>
                   <Card.Title style={{ fontSize: "26px", fontWeight: "bold" }}>
                     Price
                   </Card.Title>
                   <Card.Text style={{ fontSize: "18px" }}>
-                    {String(props.curPrice) + " Testnet-aETH"}
+                    {String(props.curPrice) + " Goerli aETH"}
                   </Card.Text>
+                  </Card>
                 </Col>
-                <Col
-                  xs={6}
-                  style={{ backgroundColor: "#fff6ed", borderRadius: "30px" }}
-                >
+                <Col xs={6}>
+                  <Card style={{ backgroundColor: "#fff6ed", borderRadius: "10px" }}>
                   <Card.Title style={{ fontSize: "26px", fontWeight: "bold" }}>
-                    Remaining
+                    Left
                   </Card.Title>
                   <Card.Text style={{ fontSize: "18px" }}>
                     {String(props.remainingEggs) +
@@ -77,9 +76,11 @@ function Minting(props: mintData) {
                       String(props.totalEggs) +
                       " Eggs"}
                   </Card.Text>
+                  </Card>
                 </Col>
               </Row>
-              <Row className="mt-2">
+              <Row>
+                <Col className="mt-3">
                 {areEggsLeft ? (
                   minting ? (
                     <Button variant="dark" size="lg" disabled>
@@ -102,6 +103,7 @@ function Minting(props: mintData) {
                     All egs are sold already!
                   </Button>
                 )}
+                </Col>
               </Row>
             </Card.Body>
           </Card>

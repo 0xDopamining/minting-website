@@ -42,10 +42,10 @@ function App() {
   useEffect(() => isWalletInitialized(), [privateKey]);
 
   useEffect(() => {
-    //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
-    setPrivateKey(
-      "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
-    );
+    // //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
+    // setPrivateKey(
+    //   "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
+    // );
 
     /*
     const input = document.getElementById("pkey")
@@ -80,15 +80,8 @@ function App() {
         <Container>
           <Row>
             <Col xs={12}>
-              <h1 style={{ fontWeight: "bold" }}>Mint your NFT Dragon</h1>
+              <h1 style={{ fontWeight: "bold" }}>Dragon Mint</h1>
             </Col>
-          </Row>
-          <Row>
-            <Col xs={1}></Col>
-            <Col xs={10}>
-              <h2>For the ripped Santa Event: Get fit for Christmas</h2>
-            </Col>
-            <Col xs={1}></Col>
           </Row>
           <Minting
             walletInitialized={walletInitialized}
