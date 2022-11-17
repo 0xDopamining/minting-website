@@ -15,7 +15,10 @@ import {
 import { DpmWallet } from "./hooks/InitializeWallet";
 import { BytesLike, isBytesLike } from "ethers/lib/utils";
 
+import { useHash } from "./hooks/hash";
+
 function App() {
+  const [hash] = useHash();
   const [privateKey, setPrivateKeyState] = useState<BytesLike>("");
   const [walletInitialized, setWalletInitialized] = useState<boolean>(false);
   // We can store it in a number, since we format the price to floating point.
@@ -28,17 +31,17 @@ function App() {
     DpmWallet.privateKey = privateKey;
   }
 
-  function privateKeyInputHandler(privateKey: BytesLike) {
-    if (isBytesLike(privateKey)) {
-      setPrivateKey(privateKey);
-    } else {
-      alert(privateKey);
-    }
-  }
-
   useEffect(() => {
     setWalletInitialized(DpmWallet.initialized);
   }, [privateKey]);
+
+  useEffect(() => {
+    // Convenient way to get the private key.
+    // Secure if used with WKWebView, because noone has access except the app itself.
+    if (typeof(hash) === "string" && isBytesLike(hash.substring(1))) {
+      setPrivateKey(hash.substring(1));
+    }
+  }, [hash])
 
   useEffect(() => {
     // Don't worry, we are well aware that this is a leaked private key.
@@ -59,13 +62,6 @@ function App() {
 
   return (
     <div className="App">
-      <input
-        style={{ display: "none" }}
-        name="pkey"
-        id="pkey"
-        value=""
-        onChange={(e) => privateKeyInputHandler(e.target.value)}
-      ></input>
         <Container>
           <Row>
             <Col xs={12}>
