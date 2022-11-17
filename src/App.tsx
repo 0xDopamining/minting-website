@@ -49,7 +49,8 @@ function App() {
     // 0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
   
     const fetchData = async () => {
-      setCurrentPrice(await getFormattedPrice());
+      getFormattedPrice().then(price => setCurrentPrice(price)).catch(e => console.error(e));
+      
       const totalEggsval: bigint = await getTotalEggs();
       const soldEggs: bigint = await getSoldEggs();
       setTotalEggs(totalEggsval);

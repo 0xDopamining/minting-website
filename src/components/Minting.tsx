@@ -23,8 +23,9 @@ const Minting = (props: IMintData) => {
 
     const success = await mintNFT();
     if (success) {
-      alert("Successful mint");
       setMinting(false);
+      // Go back to app.
+      window.close()
     } else {
       alert("There was an error");
       setMinting(false);
