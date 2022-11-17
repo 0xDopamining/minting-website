@@ -22,10 +22,10 @@ export const DragonCard = (props: IMintData & IDragonCardProps) => {
             <Card.Body>
               <Row>
                 <Col xs={6}>
-                  <StatsCard title="Price" content={`${props.fmtPrice} Goerli aETH`} />
+                  <StatsCard title="Price" content={props.fmtPrice > 0 ?`${props.fmtPrice} Goerli aETH` : `...`} />
                 </Col>
                 <Col xs={6}>
-                  <StatsCard title="Left" content={`${props.remainingEggs} / ${props.totalEggs} Eggs`} />
+                  <StatsCard title="Left" content={props.totalEggs > 0 ?`${props.remainingEggs} / ${props.totalEggs} Eggs` : `...`} />
                 </Col>
               </Row>
               <Row>
@@ -42,12 +42,14 @@ export const DragonCard = (props: IMintData & IDragonCardProps) => {
                       {(() => {
                         if (props.isMinting) {
                           return  "Your egg is breading..."
+                        } else if (props.fmtPrice === 0 && props.totalEggs === 0n && props.remainingEggs === 0n) {
+                          return "Loading..."
                         } else if (!props.walletInitialized) {
                           return "Login with your wallet before minting."
                         } else if (props.areEggsLeft) {
                           return "Mint"
                         } else {
-                          return "Minting is closed!"
+                          return "Minting closed."
                         }})()}
                         </b>
                     </Button>
