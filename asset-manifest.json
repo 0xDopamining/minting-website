@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/minting-website/static/css/main.54093c4c.css",
-    "main.js": "/minting-website/static/js/main.114895bb.js",
+    "main.js": "/minting-website/static/js/main.addcf509.js",
     "static/js/787.57187ee3.chunk.js": "/minting-website/static/js/787.57187ee3.chunk.js",
     "static/media/dragon_egg.jpg": "/minting-website/static/media/dragon_egg.639ce11ca940c5c2b4ae.jpg",
     "index.html": "/minting-website/index.html",
     "main.54093c4c.css.map": "/minting-website/static/css/main.54093c4c.css.map",
-    "main.114895bb.js.map": "/minting-website/static/js/main.114895bb.js.map",
+    "main.addcf509.js.map": "/minting-website/static/js/main.addcf509.js.map",
     "787.57187ee3.chunk.js.map": "/minting-website/static/js/787.57187ee3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.54093c4c.css",
-    "static/js/main.114895bb.js"
+    "static/js/main.addcf509.js"
   ]
 }
