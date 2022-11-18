@@ -66,7 +66,7 @@ function App() {
         <Container>
           <Row>
             <Col xs={12}>
-              <h1>Dragon Mint</h1>
+              <h1> Dragon Mint </h1>
             </Col>
           </Row>
           <Minting

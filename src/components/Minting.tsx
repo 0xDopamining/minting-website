@@ -12,6 +12,11 @@ export interface IMintData {
   totalEggs: bigint;
 }
 
+// window.webkit not recognized by default.
+declare global {
+  interface Window { webkit: any; }
+}
+
 const Minting = (props: IMintData) => {
   const [eggsLeft, setEggsLeft] = useState<bigint>(0n);
   const [isMinting, setMinting] = useState<boolean>(false);
@@ -24,10 +29,15 @@ const Minting = (props: IMintData) => {
     const success = await mintNFT();
     if (success) {
       setMinting(false);
-      // Go back to app.
-      window.close()
+      
+      // Send message to app that minting is done
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.iOS) {
+            window.webkit.messageHandlers.iOS.postMessage({
+                "message": "mint:success"
+            });
+        }
     } else {
-      alert("There was an error");
+      alert("An error occured.");
       setMinting(false);
     }
   }
