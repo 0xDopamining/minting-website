@@ -2,31 +2,7 @@
   text-align: center;
 }
 
-body{
-  background-color:#f6f3f0 !important;
-  font-family: 'Montserrat' !important;
-  overflow-x: hidden;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-h1{
-  font-size: 60px !important;
-}
-
-h2{
-  font-size: 25px !important;
+h1 {
+  font-size: 34pt !important;
+  font-weight: bold !important;
 }

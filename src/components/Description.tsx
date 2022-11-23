@@ -1,47 +1,17 @@
 import React from "react";
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
-import NFT1 from "../assets/img/0.jpg";
-import NFT2 from "../assets/img/1.jpg";
-import NFT3 from "../assets/img/2.jpg";
-
-function Description() {
+const Description = () => {
   return (
-    <>
-      <Row>
-        <Col className="mt-4 mb-2">
-          <h2 style={{ fontWeight: "bold" }}>Which dragon will you get?</h2>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={4}>
-          <Image rounded fluid src={NFT1}></Image>
-        </Col>
-        <Col xs={4}>
-          <Image rounded fluid src={NFT2}></Image>
-        </Col>
-        <Col xs={4}>
-          <Image rounded fluid src={NFT3}></Image>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <h2 style={{ fontWeight: "bold" }}>
-            Create your egg and find out. Improve your luck on launch!
-          </h2>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>
-            Dragons created during this event will give you a better change of
-            receiving NFTs and other rewards when we launc on the main-net.
-            <br></br>
-            Only 100 mints in total are possible on this event.
-          </p>
-        </Col>
-      </Row>
-    </>
+    <Row className="my-4">
+      <Col>
+        <small>
+          <b>Disclaimer:</b> Dragons created during this event will only live on the test-net.
+          Meaning, you won't have them after the beta is closed. They give you, however, a better change of
+          receiving NFTs and other rewards when we launch on main-net.
+        </small>
+      </Col>
+    </Row>
   );
 }
 

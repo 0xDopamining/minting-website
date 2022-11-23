@@ -7,98 +7,76 @@ import Description from "./components/Description";
 import Minting from "./components/Minting";
 
 import {
-  getCurrentPrice,
+  getFormattedPrice,
   getSoldEggs,
   getTotalEggs,
 } from "./hooks/contractData";
 
-import { initializeWallet, isInitialized } from "./hooks/InitializeWallet";
+import { DpmWallet } from "./hooks/InitializeWallet";
 import { BytesLike, isBytesLike } from "ethers/lib/utils";
 
+import { useHash } from "./hooks/hash";
+
 function App() {
+  const [hash] = useHash();
   const [privateKey, setPrivateKeyState] = useState<BytesLike>("");
-  const [walletInitialized, setWalletInitialized] = useState<Boolean>(false);
-  const [curPrice, setCurrentPrice] = useState<Number>(0);
-  const [remainingEggs, setRemainingEggs] = useState<Number>(0);
-  const [totalEggs, setTotalEggs] = useState<Number>(0);
+  const [walletInitialized, setWalletInitialized] = useState<boolean>(false);
+  // We can store it in a number, since we format the price to floating point.
+  const [fmtPrice, setCurrentPrice] = useState<number>(0);
+  const [remainingEggs, setRemainingEggs] = useState<bigint>(0n);
+  const [totalEggs, setTotalEggs] = useState<bigint>(0n);
 
   function setPrivateKey(privateKey: BytesLike) {
     setPrivateKeyState(privateKey);
-    initializeWallet(privateKey);
+    DpmWallet.privateKey = privateKey;
   }
-
-  function privateKeyInputHandler(privateKey: any) {
-    if (isBytesLike(privateKey)) {
-      setPrivateKey(privateKey);
-    } else {
-      alert(privateKey);
-    }
-  }
-
-  function isWalletInitialized() {
-    setWalletInitialized(isInitialized());
-  }
-
-  useEffect(() => isWalletInitialized(), [privateKey]);
 
   useEffect(() => {
-    //0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
-    setPrivateKey(
-      "0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13"
-    );
+    setWalletInitialized(DpmWallet.initialized);
+  }, [privateKey]);
 
-    /*
-    const input = document.getElementById("pkey")
-    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-    nativeInputValueSetter.call(input, '0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13');
+  useEffect(() => {
+    // Convenient way to get the private key.
+    // Secure if used with WKWebView, because noone has access except the app itself.
+    if (typeof(hash) === "string" && isBytesLike(hash.substring(1))) {
+      setPrivateKey(hash.substring(1));
+    }
+  }, [hash])
 
-    var ev2 = new Event('input', { bubbles: true});
-    input.dispatchEvent(ev2);
-    */
-
+  useEffect(() => {
+    // Don't worry, we are well aware that this is a leaked private key.
+    // It's still good enough for testing.
+    // 0x952450572c6faad0b4d20757e84d13e918ab8ece52ed68fbe75f7f4e48a70a13
+  
     const fetchData = async () => {
-      setCurrentPrice(await getCurrentPrice());
-      const totalEggsval: Number | any = await getTotalEggs();
-      const soldEggs: Number | any = await getSoldEggs();
+      getFormattedPrice().then(price => setCurrentPrice(price)).catch(e => console.error(e));
+      
+      const totalEggsval: bigint = await getTotalEggs();
+      const soldEggs: bigint = await getSoldEggs();
       setTotalEggs(totalEggsval);
       setRemainingEggs(totalEggsval - soldEggs);
     };
 
+    fetchData()
     setInterval(fetchData, 10 * 1000);
   }, []);
 
   return (
     <div className="App">
-      <input
-        style={{ display: "none" }}
-        name="pkey"
-        id="pkey"
-        value=""
-        onChange={(e) => privateKeyInputHandler(e.target.value)}
-      ></input>
-      <body>
         <Container>
           <Row>
             <Col xs={12}>
-              <h1 style={{ fontWeight: "bold" }}>Mint your NFT Dragon</h1>
+              <h1> Dragon Mint </h1>
             </Col>
-          </Row>
-          <Row>
-            <Col xs={1}></Col>
-            <Col xs={10}>
-              <h2>For the ripped Santa Event: Get fit for Christmas</h2>
-            </Col>
-            <Col xs={1}></Col>
           </Row>
           <Minting
             walletInitialized={walletInitialized}
-            curPrice={curPrice}
+            fmtPrice={fmtPrice}
             remainingEggs={remainingEggs}
             totalEggs={totalEggs}
           />
           <Description />
         </Container>
-      </body>
     </div>
   );
 }
